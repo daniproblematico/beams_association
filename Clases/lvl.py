@@ -3,63 +3,58 @@ with open("project.geom", "r") as f:
     datos=json.load(f)
 
 class Lvl:
-    def __init__(self, id,H,cols,beams):
-        self.id=id
+    def __init__(self, lvl_id,H,cols,beams):
+        self.lvl_id=lvl_id
         self.H=H
         self.cols=cols
         self.beams=beams
 
+    def Create_levels(self,lvl_id,H,cols,beams,datos):
+        pisos = []
+        for lvl_id in datos["pisos"]:
+            h= datos["pisos"][lvl_id]
+            col = list(datos["col_piso"][lvl_id].keys())
+            beam = list(datos["vig_piso"][lvl_id].keys())
+            piso = Lvl(lvl_id,h,col,beam)
+            pisos.append(piso)
 
-pisos = []
-
-for id in datos["pisos"]:
-    h= datos["pisos"][id]
-    col = list(datos["col_piso"][id].keys())
-    beam = list(datos["vig_piso"][id].keys())
-    piso = Lvl(id,h,col,beam)
-    pisos.append(piso)
-
-    
-
-class Beam(Lvl, id, node_i,node_f):
-    def __init__(self,):
-        x=0
+        return(pisos)
 
 
-columnas = []
-
-
-
-
+    def Create_beams(datos, Beam, pisos):
+        vigas = []
+        for n in pisos:
+            for b in n.beams:  # b es una viga perteneciente al piso n
+                nodoi = datos["vigas"][b][0]
+                nodod = datos["vigas"][b][1]
+                viga = Beam(n.lvl_id, b, nodoi, nodod)
+                
 
 
 
+        
+
+
+
+class Beam(Lvl):
+    def __init__(self, lvl_id, beam_id, node_i, node_f):
+        self.lvl_id=lvl_id
+        self.beam_id=lvl_id
+        self.node_i=node_i
+        self.node_f=node_f
 
 
 
 
 
-#Se hace un for con cada piso
-for piso in pisos:
-    id= []
-    nodoS =[]
-    nodoF = []
-    #se hace un for con cada id de columna que se guarda en el objeto piso
-    for Col in piso.cols:
-        #agrega los ids de la columna por piso
-        id.append(Col)
-        #agrega los nodos iniciales de cada columna por piso
-        nodoS.append(list(datos["columnas"][Col])[0])
-        #agrega los nodos finales de cada columna por piso
-        nodoF.append(list(datos["columnas"][Col])[1])
-    #crea un nuevo objeto columna por piso. cada valor es un arreglo de todos los valores recolectados
-    col = columna(id,nodoS,nodoF)
-    #se agrega el conjunto de colimnas creado por piso. Es decir solo hay 3 elementos
-    columnas.append(col)
-
-#print(columnas[0].id)
-#print(columnas[1].id)
-print((columnas.len()))
 
 
-#col = Lvl.col(piso[1].cols,)
+
+
+
+
+
+
+
+
+
