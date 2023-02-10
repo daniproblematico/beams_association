@@ -40,14 +40,6 @@ for lvl_id in datos["pisos"]:
     piso = Lvl(lvl_id, h, col, beam)
     pisos.append(piso)
 
-
-nodos=[]
-for n in pisos:
-    for b in n.beams:  # b es una viga perteneciente al piso n
-        x_dim
-        y_dim
-        z_dim
-
 vigas = []
 for n in pisos:
     for b in n.beams:  # b es una viga perteneciente al piso n
@@ -63,6 +55,24 @@ for n in pisos:
         nodot = datos["columnas"][b][1]
         columna = Column(n.lvl_id, b, nodob, nodot)
         columnas.append(columna)
-print(columnas[1].__dict__)
+#print(columnas[1].__dict__)
 
+nodos=[]
+obnodos=[]
+for n in pisos:
+    z=n.H
+ 
+    for b in n.beams:  # b es una viga perteneciente al piso n    
+        nodos.append(datos["vigas"][b][0])
+        nodos.append(datos["vigas"][b][1])
+        res = []
+        [res.append(x) for x in nodos if x not in res]
+        for nodox in res:
+            x=datos["nodos"][nodox][0]
+            y=datos["nodos"][nodox][1]
+            nodo=Node(n.lvl_id,x,y,z)
+            obnodos.append(nodo)
+print(len(obnodos),len(datos["nodos"]))
+print(pisos[1].__dict__)
+            
 
