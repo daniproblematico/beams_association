@@ -11,6 +11,8 @@ class Lvl:
         self.cols = cols
         self.beams = beams
 
+
+
 class Beam:
     def __init__(self, lvl_id, beam_id, node_i, node_f):
         self.lvl_id = lvl_id
@@ -26,7 +28,7 @@ class Column:
         self.node_t = node_t
 
 class Node:
-    def __init__(self,lvl_id, x_dim, y_dim, z_dim):
+    def __init__(self,lvl_id,node_id, x_dim, y_dim, z_dim):
         self.lvl_id=lvl_id
         self.x_dim=x_dim
         self.y_dim=y_dim
@@ -71,8 +73,9 @@ for n in pisos:
             x=datos["nodos"][nodox][0]
             y=datos["nodos"][nodox][1]
             nodo=Node(n.lvl_id,x,y,z)
+            print(nodo)
             obnodos.append(nodo)
 print(len(obnodos),len(datos["nodos"]))
-print(pisos[1].__dict__)
+print(obnodos[1].__dict__)
             
 
